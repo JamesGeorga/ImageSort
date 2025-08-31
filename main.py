@@ -4,12 +4,15 @@ This is the main file to run the image sorting code from.
 '''
 
 import os
-import tkinter as tk
+import tkinter as tk # use tkinter to build GUI
 from tkinter import ttk, filedialog
+from PIL import Image, ImageTK # Use pillow to display images
 
+# external functions
 from show_about import show_about
 from show_help import show_help
 from create_menu import create_menu
+from load_images import load_images
 
 def open_folder():
     
@@ -42,8 +45,8 @@ btn_file = ttk.Menubutton(navbar, text="File")
 btn_file.pack(side="left")
 
 file_menu = create_menu(btn_file, ["Open Folder...", "separator", "Save", "Save As...", "separator", "Exit"]) # Use function to populate menu
-
 file_menu.entryconfig(file_menu.index("Open Folder...", ), command=lambda: open_folder()) # Add 'Open Folder' functionality
+# file_menu.entryconfig(file_menu.index("Save", ))
 
 # === Edit button menu ===
 btn_settings = ttk.Menubutton(navbar, text="Edit")
@@ -56,7 +59,6 @@ btn_help = tk.Button(navbar, text="Help", bd=0, padx=10, command=lambda: show_he
 btn_help.pack(side="left")
 
 # === About button ===
-
 btn_about = tk.Button(navbar, text="About", bd=0, command=lambda: show_about(root))
 btn_about.pack(side="left")
 
@@ -65,6 +67,7 @@ frame = tk.Frame(root, bg="grey99", relief="sunken", borderwidth=4)
 frame.pack(fill="both", expand=True, padx=10)
 
 # display images in current directory
+
 
 # === Current Directory ===
 direc = tk.Frame(root, height=50)

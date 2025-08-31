@@ -5,11 +5,12 @@ This is the main file to run the image sorting code from.
 
 import os
 import tkinter as tk
-from tkinter import ttk
-from tkinter.messagebox import showinfo
+from tkinter import ttk, filedialog
 
 from show_about import show_about
-from file_button_menu import file_button_menu
+from show_help import show_help
+from populate_menu import populate_menu
+from open_folder import open_folder
 
 # === Create Tkinter window ===
 root = tk.Tk()
@@ -33,22 +34,18 @@ navbar.pack(side="top", fill="x")
 btn_file = ttk.Menubutton(navbar, text="File")
 btn_file.pack(side="left")
 
-file_menu = tk.Menu(btn_file, tearoff=0)
-file_menu.add_command(label="Open Folder...")
-file_menu.add_separator()
-file_menu.add_command(label="Save")
-file_menu.add_command(label="Save As...")
+populate_menu(btn_file, ["Open Folder...", "separator", "Save", "Save As...", "separator", "Exit"]) # Use function to populate menu
 
-
-btn_file["menu"] = file_menu
+open_folder(btn_file) # build Open Folder functionality
 
 # === Edit button ===
 btn_settings = ttk.Menubutton(navbar, text="Edit")
 btn_settings.pack(side="left")
 
-# === Help button ===
+populate_menu(btn_settings, ["Undo", "Redo", "separator", "Copy", "Paste"])
 
-btn_help = tk.Button(navbar, text="Help", bd=0, padx=10)
+# === Help button ===
+btn_help = tk.Button(navbar, text="Help", bd=0, padx=10, command=lambda: show_help(root))
 btn_help.pack(side="left")
 
 # === About button ===
@@ -59,6 +56,7 @@ btn_about.pack(side="left")
 # === Main frame (content area) ===
 frame = tk.Frame(root, bg="grey99", relief="sunken", borderwidth=4)
 frame.pack(fill="both", expand=True, padx=10, pady=10)
+
 
 
 root.mainloop()

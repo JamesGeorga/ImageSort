@@ -5,7 +5,7 @@ This function populates a dropdown menu provided the list of elements to be cont
 
 import tkinter as tk
 
-def populate_menu(button, labels):
+def create_menu(button, labels):
 
     menu = tk.Menu(button, tearoff=0)
 

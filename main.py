@@ -9,12 +9,19 @@ from tkinter import ttk, filedialog
 
 from show_about import show_about
 from show_help import show_help
-from populate_menu import populate_menu
-from open_folder import open_folder
+from create_menu import create_menu
+
+def open_folder():
+    
+    folder = filedialog.askdirectory(title="Select a Folder") # opens the file browser
+
+    root.selected_folder.set(folder)
+
 
 # === Create Tkinter window ===
 root = tk.Tk()
 root.title('Image Sorter') # set title
+root.selected_folder = tk.StringVar(value="No folder selected.") # store current folder location (None by defualt)
 
 # === Set default window size and location ===
 # get the screen dimension
@@ -30,19 +37,19 @@ root.geometry(f'900x600+{center_x}+{center_y}')
 navbar = tk.Frame(root, height=50)
 navbar.pack(side="top", fill="x")
 
-# === File button ===
+# === File Button Menu ===
 btn_file = ttk.Menubutton(navbar, text="File")
 btn_file.pack(side="left")
 
-populate_menu(btn_file, ["Open Folder...", "separator", "Save", "Save As...", "separator", "Exit"]) # Use function to populate menu
+file_menu = create_menu(btn_file, ["Open Folder...", "separator", "Save", "Save As...", "separator", "Exit"]) # Use function to populate menu
 
-open_folder(btn_file) # build Open Folder functionality
+file_menu.entryconfig(file_menu.index("Open Folder...", ), command=lambda: open_folder()) # Add 'Open Folder' functionality
 
-# === Edit button ===
+# === Edit button menu ===
 btn_settings = ttk.Menubutton(navbar, text="Edit")
 btn_settings.pack(side="left")
 
-populate_menu(btn_settings, ["Undo", "Redo", "separator", "Copy", "Paste"])
+settings_menu = create_menu(btn_settings, ["Undo", "Redo", "separator", "Copy", "Paste"])
 
 # === Help button ===
 btn_help = tk.Button(navbar, text="Help", bd=0, padx=10, command=lambda: show_help(root))
@@ -55,8 +62,14 @@ btn_about.pack(side="left")
 
 # === Main frame (content area) ===
 frame = tk.Frame(root, bg="grey99", relief="sunken", borderwidth=4)
-frame.pack(fill="both", expand=True, padx=10, pady=10)
+frame.pack(fill="both", expand=True, padx=10)
 
+# display images in current directory
 
+# === Current Directory ===
+direc = tk.Frame(root, height=50)
+direc.pack(side="bottom", fill="x")
+label = tk.Label(direc, textvariable=root.selected_folder) # test folder can be found.
+label.pack(side="left")
 
 root.mainloop()

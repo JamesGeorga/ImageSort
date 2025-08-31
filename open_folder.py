@@ -6,8 +6,9 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter.messagebox import showinfo
 
-def open_folder(btn):
+
+def open_folder():
     
     folder = filedialog.askdirectory(title="Select a Folder") # opens the file browser
 
-    return None
+    return folder if folder else None

@@ -6,7 +6,7 @@ This is the main file to run the image sorting code from.
 import os
 import tkinter as tk # use tkinter to build GUI
 from tkinter import ttk, filedialog
-from PIL import Image, ImageTK # Use pillow to display images
+# from PIL import Image, ImageTK # Use pillow to display images
 
 # external functions
 from show_about import show_about
@@ -47,6 +47,7 @@ btn_file.pack(side="left")
 file_menu = create_menu(btn_file, ["Open Folder...", "separator", "Save", "Save As...", "separator", "Exit"]) # Use function to populate menu
 file_menu.entryconfig(file_menu.index("Open Folder...", ), command=lambda: open_folder()) # Add 'Open Folder' functionality
 # file_menu.entryconfig(file_menu.index("Save", ))
+file_menu.entryconfig(file_menu.index("Exit", ), command=lambda: quit()) # end the program on press
 
 # === Edit button menu ===
 btn_settings = ttk.Menubutton(navbar, text="Edit")
